@@ -1,8 +1,5 @@
 cron:
   image: fballiano/magento2-cron
-  depends_on:
-    - apache
-    - varnish
   links:
     - db
     - cache
@@ -15,8 +12,6 @@ cron:
 
 ssl:
   image: fballiano/nginx-ssl-for-magento2
-  depends_on:
-    - varnish
   links:
     - varnish
   ports:
@@ -27,8 +22,6 @@ varnish:
   ports:
     - "80:80"
     - "6082:6082"
-  depends_on:
-    - apache
   links:
     - apache
   volumes:
@@ -39,10 +32,6 @@ varnish:
 
 apache:
   image: fballiano/magento2-apache-php
-  depends_on:
-    - db
-    - cache
-    - clusterdata
   links:
     - db
     - cache
